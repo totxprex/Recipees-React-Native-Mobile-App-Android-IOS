@@ -12,6 +12,7 @@ function SignUp({ navigation }) {
   const [isLoading, setisLoading] = useState(false)
 
 
+
   return (
     <ScrollView>
       <View style={{

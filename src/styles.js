@@ -194,10 +194,16 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 50
   },
   userImage: {
-    width: "40%",
-    marginTop: -100,
-    elevation: 10,
-    borderRadius: 40
+    width: "35%",
+    height: "60%",
+    borderRadius: 80,
+    elevation: 3
+  },
+  imgCont: {
+    width: "100%",
+    marginTop: -60,
+    elevation: 0.1,
+    alignItems: "center"
   },
   settingsCard: {
     width: "100%",

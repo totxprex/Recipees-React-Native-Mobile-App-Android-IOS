@@ -10,12 +10,15 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 function AccountCont({ navigation, route }) {
   const { setisLoading } = useContext(settingsContext)
 
+  const data = route.params.data
+
+
   return (
     <ImageBackground imageStyle={{ opacity: 0.2 }} style={{ flex: 1, paddingTop: 30 }} source={bg} resizeMode="cover">
       <ScrollView style={styles.recipeListCont2}>
         <Text style={{ fontSize: 25, color: "black", marginBottom: 20, textAlign: "center" }}>ACCOUNT SETTINGS</Text>
-        <TextInput mode="flat" placeholder="Tolulope Mumuney" focusable={true} style={{ height: 50, elevation: 5, marginBottom: 30 }}></TextInput>
-        <TextInput mode="flat" placeholder="totxprex@gmail.com" focusable={true} style={{ height: 50, elevation: 5, marginBottom: 30 }}></TextInput>
+        <TextInput mode="flat" placeholder={`${data.name}`} focusable={true} style={{ height: 50, elevation: 5, marginBottom: 30 }}></TextInput>
+        <TextInput mode="flat" placeholder={`${data.email}`} focusable={true} style={{ height: 50, elevation: 5, marginBottom: 30 }}></TextInput>
         <TextInput mode="flat" placeholder="*****" focusable={true} style={{ height: 50, elevation: 5, marginBottom: 30 }}></TextInput>
 
         <Icon.Button name="update" size={30}>

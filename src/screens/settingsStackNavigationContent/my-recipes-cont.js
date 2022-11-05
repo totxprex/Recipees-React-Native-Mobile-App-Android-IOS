@@ -3,19 +3,47 @@ import { View, Text, FlatList } from "react-native";
 import styles from "../../styles";
 import Card from "../../components/card";
 import Loading from "../../logic/loadingAnimate";
+import GlobalDataContext from "../../logic/global-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native"
 
 
 function MyRecipesCont({ navigation, route }) {
   const [component, setComponents] = useState([])
   const [isLoading, setisLoading] = useState(false)
+  const { backendServer, fullUserData } = useContext(GlobalDataContext)
+  const [recipes, setRecipes] = useState([])
+
+
+  async function fixAwsUrl() {
+    let { myPostedRecipes } = { ...route.params.data }
+    const token = await AsyncStorage.getItem("token")
+
+    myPostedRecipes = myPostedRecipes.map(async (e) => {
+      try {
+        const { data } = await (await fetch(`${backendServer}/recipees/api/v4/1680/${token}/aws/${e.image_url}`)).json()
+        const newRec = { ...e }
+        newRec.image_url = data
+        return newRec
+      }
+      catch (err) {
+        Alert.alert("Failed", "Some resources failed to fetch")
+      }
+    })
+
+    myPostedRecipes = await Promise.all(myPostedRecipes)
+
+    setRecipes(myPostedRecipes)
+
+  }
+
 
   async function getData() {
     try {
       setisLoading(true)
-      const { recipes } = await (await (fetch(`https://forkify-api.herokuapp.com/api/search?q=pizza`))).json()
 
       const dataa = recipes.map((e) => {
-        return <Card shouldIShowDetails="no" navigation={{}} data={e} id={e.recipe_id} key={e.recipe_id} />
+        return <Card shouldIShowDetails="no" navigation={{}} data={e} id={e._id} key={e._id} />
       })
 
       setComponents(dataa)
@@ -28,8 +56,13 @@ function MyRecipesCont({ navigation, route }) {
   }
 
   useEffect(() => {
-    getData()
+    fixAwsUrl()
   }, [])
+
+  useEffect(() => {
+
+    getData()
+  }, [recipes])
 
 
   return (

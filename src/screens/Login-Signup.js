@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ImageBackground } from "react-native";
 import Login from "./login-signup-stack/login";
 import SignUp from "./login-signup-stack/signup";

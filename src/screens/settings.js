@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import settingsContext from "../logic/settings-context"
 import SettingsCont from "./settingsStackNavigationContent/settings-cont"
 import MyRecipesCont from "./settingsStackNavigationContent/my-recipes-cont"
@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { NavigationContainer } from "@react-navigation/native"
 import AccountCont from "./settingsStackNavigationContent/account-cont"
 import { TransitionPresets } from "@react-navigation/stack"
+import CameraCont from "./settingsStackNavigationContent/camera"
 
 
 
@@ -34,6 +35,9 @@ export default function Settings({ showSettings }) {
 
           <settingsStackNav.Screen name="Account" component={AccountCont}></settingsStackNav.Screen>
 
+          <settingsStackNav.Screen component={CameraCont} initialParams={{}} name="Camera">
+
+          </settingsStackNav.Screen>
         </settingsStackNav.Navigator>
 
       </NavigationContainer>
